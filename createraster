@@ -1,0 +1,3 @@
+gdal_grid -a invdist:power=2.0:smoothing=1.0 -txe -74.789566 -76.657402 -tye 44.099663 45.031693 -outsize 400 400 -of GTiff -ot Float32 -l wl wl.vrt wl.tiff
+
+gdal_grid -a nearest:radius1=0.002:radius2=0.002 -txe -74.789566 -76.657402 -tye 44.099663 45.031693 -outsize 400 400 -of GTiff -ot Float32 -l wl wl.vrt wl8.tif

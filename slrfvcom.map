@@ -1,0 +1,1558 @@
+MAP
+	NAME 'SLR-FVCOM'
+	size 600 400
+	UNITS dd
+	EXTENT -76.657402 44.099663 -74.789566 45.031693
+	SYMBOLSET "symbols.sym"
+	FONTSET "fonts.txt"
+	IMAGETYPE AGGA
+	OUTPUTFORMAT
+        	NAME 'AGGA'
+        	DRIVER AGG/PNG
+        	IMAGEMODE RGBA
+	END
+	IMAGECOLOR 255 255 255
+	PROJECTION
+        	"init=epsg:4269"
+	END
+	WEB
+		METADATA
+			"ows_enable_request"   "*"
+			"wms_title" "SLRFVCOM"
+            		"wms_onlineresource" "http://192.168.100.106/cgi-bin/slrfvcom?"
+            		"wms_srs" "EPSG:4269 EPSG:4326 EPSG:3857"
+			"wms_exceptions_format" "application/vnd.ogc.se_inimage"
+            		"wms_feature_info_mime_type" "text/html"
+        	END
+    	END
+	LAYER
+		NAME "slrfvmcurrent"
+		TYPE POLYGON
+		STATUS ON
+		CONNECTIONTYPE POSTGIS
+		CONNECTION "dbname=slrfvcom host=127.0.0.1 user=gwang password=gwang port=5432"
+        	DATA "the_geom from slrfvm"
+        	PROJECTION
+            		"init=epsg:4269"
+        	END
+		DUMP TRUE
+		TEMPLATE "/var/local/mapfiles/slrfvm.html"
+		METADATA
+            		"wms_title" "slrfvmcurrent"
+            		"wms_srs" "EPSG:4269 EPSG:4326 EPSG:3857"
+            		"wms_extent" "-76.657402 44.099663 -74.789566 45.031693"
+            		"wms_timeextent" "2009-01-29 01:00:00/2020-01-29 23:59:59"
+            		"wms_timeitem" "datetime"
+			"wms_enable_request" "*"
+			#"wms_include_items"   "all"
+            		#"wms_timedefault" "2009-01-29 11:00:00"
+			#"wms_exceptions_format" "application/vnd.ogc.se_xml"
+			"wms_exceptions_format" "application/vnd.ogc.se_inimage"
+        	END
+		LABELITEM "msdir0"
+		CLASS
+            		NAME "current.0-.25"
+            		STYLE
+				OPACITY 0 
+            		END
+			EXPRESSION ([uv0]>=0 AND [uv0]<0.25)
+			TEXT "F"
+			LABEL
+                                SIZE 12
+                        	COLOR 0 0 255
+                                ANGLE [msdir0]
+                                PARTIALS true
+                                TYPE TRUETYPE
+                                FONT esri_39
+                                ANTIALIAS true
+                                POSITION CC
+                        END
+        	END
+		CLASS
+                        NAME "current.0.25-.50"
+                        STYLE
+                                OPACITY 0
+                        END
+			EXPRESSION ([uv0]>=0.25 AND [uv0]<0.50)
+                        TEXT "F"
+                        LABEL
+                                SIZE 12
+                        	COLOR 0 255 255
+                                ANGLE [msdir0]
+                                PARTIALS true
+                                TYPE TRUETYPE
+                                FONT esri_39
+                                ANTIALIAS true
+                                POSITION CC
+                        END
+                END
+		CLASS
+                        NAME "current0.50-0.75"
+                        STYLE
+                                OPACITY 0
+                        END
+			EXPRESSION ([uv0]>=0.50 AND [uv0]<0.75)
+                        TEXT "F"
+                        LABEL
+                                SIZE 12
+                        	COLOR 0 255 0
+                                ANGLE [msdir0]
+                                PARTIALS true
+                                TYPE TRUETYPE
+                                FONT esri_39
+                                ANTIALIAS true
+                                POSITION CC
+                        END
+                END
+		CLASS
+                        NAME "current0.75-1.00"
+                        STYLE
+                                OPACITY 0
+                        END
+			EXPRESSION ([uv0]>=0.75 AND [uv0]<1.00)
+                        TEXT "F"
+                        LABEL
+                                SIZE 12
+                        	COLOR 255 255 0
+                                ANGLE [msdir0]
+                                PARTIALS true
+                                TYPE TRUETYPE
+                                FONT esri_39
+                                ANTIALIAS true
+                                POSITION CC
+                        END
+                END
+		CLASS
+                        NAME "current1.00-1.25"
+                        STYLE
+                                OPACITY 0
+                        END
+			EXPRESSION ([uv0]>=1.00 AND [uv0]<1.25)
+                        TEXT "F"
+                        LABEL
+                                SIZE 12
+                        	COLOR 255 0 0
+                                ANGLE [msdir0]
+                                PARTIALS true
+                                TYPE TRUETYPE
+                                FONT esri_39
+                                ANTIALIAS true
+                                POSITION CC
+                        END
+                END
+		CLASS
+                        NAME "current1.25-1.50"
+                        STYLE
+                                OPACITY 0
+                        END
+			EXPRESSION ([uv0]>=1.25 AND [uv0]<1.50)
+                        TEXT "F"
+                        LABEL
+                                SIZE 12
+                        	COLOR 255 125 0
+                                ANGLE [msdir0]
+                                PARTIALS true
+                                TYPE TRUETYPE
+                                FONT esri_39
+                                ANTIALIAS true
+                                POSITION CC
+                        END
+                END
+		CLASS
+                        NAME "current1.50"
+                        STYLE
+                                OPACITY 0
+                        END
+			EXPRESSION ([uv0]>=1.50)
+                        TEXT "F"
+                        LABEL
+                                SIZE 12
+                        	COLOR 255 125 125
+                                ANGLE [msdir0]
+                                PARTIALS true
+                                TYPE TRUETYPE
+                                FONT esri_39
+                                ANTIALIAS true
+                                POSITION CC
+                        END
+                END
+	END
+	LAYER
+                NAME "slrfvmgrid"
+                TYPE POLYGON
+                STATUS ON
+                CONNECTIONTYPE POSTGIS
+                CONNECTION "dbname=slrfvcom host=127.0.0.1 user=gwang password=gwang port=5432"
+                DATA "the_geom from slrfvm"
+                PROJECTION
+                        "init=epsg:4269"
+                END
+                DUMP TRUE
+                TEMPLATE "/var/local/mapfiles/slrfvm.html"
+                METADATA
+                        "wms_title" "slrfvmgrid"
+                        "wms_srs" "EPSG:4269 EPSG:4326 EPSG:3857"
+                        "wms_extent" "-76.657402 44.099663 -74.789566 45.031693"
+                        "wms_timeextent" "2009-01-29 01:00:00/2020-01-29 23:59:59"
+                        "wms_timeitem" "datetime"
+                        "wms_enable_request" "*"
+                        "wms_include_items"   "all"
+                        #"wms_timedefault" "2009-01-29 11:00:00"
+                        #"wms_exceptions_format" "application/vnd.ogc.se_xml"
+                        "wms_exceptions_format" "application/vnd.ogc.se_inimage"
+                END
+                CLASS
+                        NAME "slrfvmpoly_grid"
+                        STYLE
+                                SIZE 0
+                                COLOR 200 201 247
+                                ANTIALIAS True
+                                OUTLINECOLOR 110 110 110
+                        END
+                END
+	END
+	LAYER
+                NAME "slrfvmdepth"
+                TYPE POLYGON
+                STATUS ON
+                CONNECTIONTYPE POSTGIS
+                CONNECTION "dbname=slrfvcom host=127.0.0.1 user=gwang password=gwang port=5432"
+                DATA "the_geom from slrfvm"
+                PROJECTION
+                        "init=epsg:4269"
+                END
+                DUMP TRUE
+                TEMPLATE "/var/local/mapfiles/slrfvm.html"
+                METADATA
+                        "wms_title" "slrfvmdepth"
+                        "wms_srs" "EPSG:4269 EPSG:4326 EPSG:3857"
+                        "wms_extent" "-76.657402 44.099663 -74.789566 45.031693"
+                        "wms_timeextent" "2009-01-29 01:00:00/2020-01-29 23:59:59"
+                        "wms_timeitem" "datetime"
+                        "wms_enable_request" "*"
+                        "wms_include_items"   "all"
+                        #"wms_timedefault" "2009-01-29 11:00:00"
+                        #"wms_exceptions_format" "application/vnd.ogc.se_xml"
+                        "wms_exceptions_format" "application/vnd.ogc.se_inimage"
+                END
+                		
+				
+
+CLASS
+	NAME "-90.00--89.10"
+	EXPRESSION ([depth]>=-90.00 AND [depth]<-89.10)
+	STYLE
+		COLOR 0 0 255
+	END
+	STYLE
+		OUTLINECOLOR 0 0 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-89.10--88.20"
+	EXPRESSION ([depth]>=-89.10 AND [depth]<-88.20)
+	STYLE
+		COLOR 0 10 255
+	END
+	STYLE
+		OUTLINECOLOR 0 10 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-88.20--87.30"
+	EXPRESSION ([depth]>=-88.20 AND [depth]<-87.30)
+	STYLE
+		COLOR 0 20 255
+	END
+	STYLE
+		OUTLINECOLOR 0 20 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-87.30--86.40"
+	EXPRESSION ([depth]>=-87.30 AND [depth]<-86.40)
+	STYLE
+		COLOR 0 30 255
+	END
+	STYLE
+		OUTLINECOLOR 0 30 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-86.40--85.50"
+	EXPRESSION ([depth]>=-86.40 AND [depth]<-85.50)
+	STYLE
+		COLOR 0 40 255
+	END
+	STYLE
+		OUTLINECOLOR 0 40 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-85.50--84.60"
+	EXPRESSION ([depth]>=-85.50 AND [depth]<-84.60)
+	STYLE
+		COLOR 0 51 255
+	END
+	STYLE
+		OUTLINECOLOR 0 51 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-84.60--83.70"
+	EXPRESSION ([depth]>=-84.60 AND [depth]<-83.70)
+	STYLE
+		COLOR 0 61 255
+	END
+	STYLE
+		OUTLINECOLOR 0 61 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-83.70--82.80"
+	EXPRESSION ([depth]>=-83.70 AND [depth]<-82.80)
+	STYLE
+		COLOR 0 71 255
+	END
+	STYLE
+		OUTLINECOLOR 0 71 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-82.80--81.90"
+	EXPRESSION ([depth]>=-82.80 AND [depth]<-81.90)
+	STYLE
+		COLOR 0 81 255
+	END
+	STYLE
+		OUTLINECOLOR 0 81 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-81.90--81.00"
+	EXPRESSION ([depth]>=-81.90 AND [depth]<-81.00)
+	STYLE
+		COLOR 0 91 255
+	END
+	STYLE
+		OUTLINECOLOR 0 91 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-81.00--80.10"
+	EXPRESSION ([depth]>=-81.00 AND [depth]<-80.10)
+	STYLE
+		COLOR 0 102 255
+	END
+	STYLE
+		OUTLINECOLOR 0 102 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-80.10--79.20"
+	EXPRESSION ([depth]>=-80.10 AND [depth]<-79.20)
+	STYLE
+		COLOR 0 112 255
+	END
+	STYLE
+		OUTLINECOLOR 0 112 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-79.20--78.30"
+	EXPRESSION ([depth]>=-79.20 AND [depth]<-78.30)
+	STYLE
+		COLOR 0 122 255
+	END
+	STYLE
+		OUTLINECOLOR 0 122 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-78.30--77.40"
+	EXPRESSION ([depth]>=-78.30 AND [depth]<-77.40)
+	STYLE
+		COLOR 0 132 255
+	END
+	STYLE
+		OUTLINECOLOR 0 132 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-77.40--76.50"
+	EXPRESSION ([depth]>=-77.40 AND [depth]<-76.50)
+	STYLE
+		COLOR 0 142 255
+	END
+	STYLE
+		OUTLINECOLOR 0 142 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-76.50--75.60"
+	EXPRESSION ([depth]>=-76.50 AND [depth]<-75.60)
+	STYLE
+		COLOR 0 153 255
+	END
+	STYLE
+		OUTLINECOLOR 0 153 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-75.60--74.70"
+	EXPRESSION ([depth]>=-75.60 AND [depth]<-74.70)
+	STYLE
+		COLOR 0 163 255
+	END
+	STYLE
+		OUTLINECOLOR 0 163 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-74.70--73.80"
+	EXPRESSION ([depth]>=-74.70 AND [depth]<-73.80)
+	STYLE
+		COLOR 0 173 255
+	END
+	STYLE
+		OUTLINECOLOR 0 173 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-73.80--72.90"
+	EXPRESSION ([depth]>=-73.80 AND [depth]<-72.90)
+	STYLE
+		COLOR 0 183 255
+	END
+	STYLE
+		OUTLINECOLOR 0 183 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-72.90--72.00"
+	EXPRESSION ([depth]>=-72.90 AND [depth]<-72.00)
+	STYLE
+		COLOR 0 193 255
+	END
+	STYLE
+		OUTLINECOLOR 0 193 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-72.00--71.10"
+	EXPRESSION ([depth]>=-72.00 AND [depth]<-71.10)
+	STYLE
+		COLOR 0 204 255
+	END
+	STYLE
+		OUTLINECOLOR 0 204 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-71.10--70.20"
+	EXPRESSION ([depth]>=-71.10 AND [depth]<-70.20)
+	STYLE
+		COLOR 0 214 255
+	END
+	STYLE
+		OUTLINECOLOR 0 214 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-70.20--69.30"
+	EXPRESSION ([depth]>=-70.20 AND [depth]<-69.30)
+	STYLE
+		COLOR 0 224 255
+	END
+	STYLE
+		OUTLINECOLOR 0 224 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-69.30--68.40"
+	EXPRESSION ([depth]>=-69.30 AND [depth]<-68.40)
+	STYLE
+		COLOR 0 234 255
+	END
+	STYLE
+		OUTLINECOLOR 0 234 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-68.40--67.50"
+	EXPRESSION ([depth]>=-68.40 AND [depth]<-67.50)
+	STYLE
+		COLOR 0 244 255
+	END
+	STYLE
+		OUTLINECOLOR 0 244 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-67.50--66.60"
+	EXPRESSION ([depth]>=-67.50 AND [depth]<-66.60)
+	STYLE
+		COLOR 0 255 255
+	END
+	STYLE
+		OUTLINECOLOR 0 255 255
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-66.60--65.70"
+	EXPRESSION ([depth]>=-66.60 AND [depth]<-65.70)
+	STYLE
+		COLOR 0 255 244
+	END
+	STYLE
+		OUTLINECOLOR 0 255 244
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-65.70--64.80"
+	EXPRESSION ([depth]>=-65.70 AND [depth]<-64.80)
+	STYLE
+		COLOR 0 255 234
+	END
+	STYLE
+		OUTLINECOLOR 0 255 234
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-64.80--63.90"
+	EXPRESSION ([depth]>=-64.80 AND [depth]<-63.90)
+	STYLE
+		COLOR 0 255 224
+	END
+	STYLE
+		OUTLINECOLOR 0 255 224
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-63.90--63.00"
+	EXPRESSION ([depth]>=-63.90 AND [depth]<-63.00)
+	STYLE
+		COLOR 0 255 214
+	END
+	STYLE
+		OUTLINECOLOR 0 255 214
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-63.00--62.10"
+	EXPRESSION ([depth]>=-63.00 AND [depth]<-62.10)
+	STYLE
+		COLOR 0 255 204
+	END
+	STYLE
+		OUTLINECOLOR 0 255 204
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-62.10--61.20"
+	EXPRESSION ([depth]>=-62.10 AND [depth]<-61.20)
+	STYLE
+		COLOR 0 255 193
+	END
+	STYLE
+		OUTLINECOLOR 0 255 193
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-61.20--60.30"
+	EXPRESSION ([depth]>=-61.20 AND [depth]<-60.30)
+	STYLE
+		COLOR 0 255 183
+	END
+	STYLE
+		OUTLINECOLOR 0 255 183
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-60.30--59.40"
+	EXPRESSION ([depth]>=-60.30 AND [depth]<-59.40)
+	STYLE
+		COLOR 0 255 173
+	END
+	STYLE
+		OUTLINECOLOR 0 255 173
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-59.40--58.50"
+	EXPRESSION ([depth]>=-59.40 AND [depth]<-58.50)
+	STYLE
+		COLOR 0 255 163
+	END
+	STYLE
+		OUTLINECOLOR 0 255 163
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-58.50--57.60"
+	EXPRESSION ([depth]>=-58.50 AND [depth]<-57.60)
+	STYLE
+		COLOR 0 255 153
+	END
+	STYLE
+		OUTLINECOLOR 0 255 153
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-57.60--56.70"
+	EXPRESSION ([depth]>=-57.60 AND [depth]<-56.70)
+	STYLE
+		COLOR 0 255 142
+	END
+	STYLE
+		OUTLINECOLOR 0 255 142
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-56.70--55.80"
+	EXPRESSION ([depth]>=-56.70 AND [depth]<-55.80)
+	STYLE
+		COLOR 0 255 132
+	END
+	STYLE
+		OUTLINECOLOR 0 255 132
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-55.80--54.90"
+	EXPRESSION ([depth]>=-55.80 AND [depth]<-54.90)
+	STYLE
+		COLOR 0 255 122
+	END
+	STYLE
+		OUTLINECOLOR 0 255 122
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-54.90--54.00"
+	EXPRESSION ([depth]>=-54.90 AND [depth]<-54.00)
+	STYLE
+		COLOR 0 255 112
+	END
+	STYLE
+		OUTLINECOLOR 0 255 112
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-54.00--53.10"
+	EXPRESSION ([depth]>=-54.00 AND [depth]<-53.10)
+	STYLE
+		COLOR 0 255 101
+	END
+	STYLE
+		OUTLINECOLOR 0 255 101
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-53.10--52.20"
+	EXPRESSION ([depth]>=-53.10 AND [depth]<-52.20)
+	STYLE
+		COLOR 0 255 91
+	END
+	STYLE
+		OUTLINECOLOR 0 255 91
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-52.20--51.30"
+	EXPRESSION ([depth]>=-52.20 AND [depth]<-51.30)
+	STYLE
+		COLOR 0 255 81
+	END
+	STYLE
+		OUTLINECOLOR 0 255 81
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-51.30--50.40"
+	EXPRESSION ([depth]>=-51.30 AND [depth]<-50.40)
+	STYLE
+		COLOR 0 255 71
+	END
+	STYLE
+		OUTLINECOLOR 0 255 71
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-50.40--49.50"
+	EXPRESSION ([depth]>=-50.40 AND [depth]<-49.50)
+	STYLE
+		COLOR 0 255 61
+	END
+	STYLE
+		OUTLINECOLOR 0 255 61
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-49.50--48.60"
+	EXPRESSION ([depth]>=-49.50 AND [depth]<-48.60)
+	STYLE
+		COLOR 0 255 50
+	END
+	STYLE
+		OUTLINECOLOR 0 255 50
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-48.60--47.70"
+	EXPRESSION ([depth]>=-48.60 AND [depth]<-47.70)
+	STYLE
+		COLOR 0 255 40
+	END
+	STYLE
+		OUTLINECOLOR 0 255 40
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-47.70--46.80"
+	EXPRESSION ([depth]>=-47.70 AND [depth]<-46.80)
+	STYLE
+		COLOR 0 255 30
+	END
+	STYLE
+		OUTLINECOLOR 0 255 30
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-46.80--45.90"
+	EXPRESSION ([depth]>=-46.80 AND [depth]<-45.90)
+	STYLE
+		COLOR 0 255 20
+	END
+	STYLE
+		OUTLINECOLOR 0 255 20
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-45.90--45.00"
+	EXPRESSION ([depth]>=-45.90 AND [depth]<-45.00)
+	STYLE
+		COLOR 0 255 10
+	END
+	STYLE
+		OUTLINECOLOR 0 255 10
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-45.00--44.10"
+	EXPRESSION ([depth]>=-45.00 AND [depth]<-44.10)
+	STYLE
+		COLOR 0 255 0
+	END
+	STYLE
+		OUTLINECOLOR 0 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-44.10--43.20"
+	EXPRESSION ([depth]>=-44.10 AND [depth]<-43.20)
+	STYLE
+		COLOR 10 255 0
+	END
+	STYLE
+		OUTLINECOLOR 10 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-43.20--42.30"
+	EXPRESSION ([depth]>=-43.20 AND [depth]<-42.30)
+	STYLE
+		COLOR 20 255 0
+	END
+	STYLE
+		OUTLINECOLOR 20 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-42.30--41.40"
+	EXPRESSION ([depth]>=-42.30 AND [depth]<-41.40)
+	STYLE
+		COLOR 30 255 0
+	END
+	STYLE
+		OUTLINECOLOR 30 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-41.40--40.50"
+	EXPRESSION ([depth]>=-41.40 AND [depth]<-40.50)
+	STYLE
+		COLOR 40 255 0
+	END
+	STYLE
+		OUTLINECOLOR 40 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-40.50--39.60"
+	EXPRESSION ([depth]>=-40.50 AND [depth]<-39.60)
+	STYLE
+		COLOR 51 255 0
+	END
+	STYLE
+		OUTLINECOLOR 51 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-39.60--38.70"
+	EXPRESSION ([depth]>=-39.60 AND [depth]<-38.70)
+	STYLE
+		COLOR 61 255 0
+	END
+	STYLE
+		OUTLINECOLOR 61 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-38.70--37.80"
+	EXPRESSION ([depth]>=-38.70 AND [depth]<-37.80)
+	STYLE
+		COLOR 71 255 0
+	END
+	STYLE
+		OUTLINECOLOR 71 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-37.80--36.90"
+	EXPRESSION ([depth]>=-37.80 AND [depth]<-36.90)
+	STYLE
+		COLOR 81 255 0
+	END
+	STYLE
+		OUTLINECOLOR 81 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-36.90--36.00"
+	EXPRESSION ([depth]>=-36.90 AND [depth]<-36.00)
+	STYLE
+		COLOR 91 255 0
+	END
+	STYLE
+		OUTLINECOLOR 91 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-36.00--35.10"
+	EXPRESSION ([depth]>=-36.00 AND [depth]<-35.10)
+	STYLE
+		COLOR 102 255 0
+	END
+	STYLE
+		OUTLINECOLOR 102 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-35.10--34.20"
+	EXPRESSION ([depth]>=-35.10 AND [depth]<-34.20)
+	STYLE
+		COLOR 112 255 0
+	END
+	STYLE
+		OUTLINECOLOR 112 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-34.20--33.30"
+	EXPRESSION ([depth]>=-34.20 AND [depth]<-33.30)
+	STYLE
+		COLOR 122 255 0
+	END
+	STYLE
+		OUTLINECOLOR 122 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-33.30--32.40"
+	EXPRESSION ([depth]>=-33.30 AND [depth]<-32.40)
+	STYLE
+		COLOR 132 255 0
+	END
+	STYLE
+		OUTLINECOLOR 132 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-32.40--31.50"
+	EXPRESSION ([depth]>=-32.40 AND [depth]<-31.50)
+	STYLE
+		COLOR 142 255 0
+	END
+	STYLE
+		OUTLINECOLOR 142 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-31.50--30.60"
+	EXPRESSION ([depth]>=-31.50 AND [depth]<-30.60)
+	STYLE
+		COLOR 153 255 0
+	END
+	STYLE
+		OUTLINECOLOR 153 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-30.60--29.70"
+	EXPRESSION ([depth]>=-30.60 AND [depth]<-29.70)
+	STYLE
+		COLOR 163 255 0
+	END
+	STYLE
+		OUTLINECOLOR 163 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-29.70--28.80"
+	EXPRESSION ([depth]>=-29.70 AND [depth]<-28.80)
+	STYLE
+		COLOR 173 255 0
+	END
+	STYLE
+		OUTLINECOLOR 173 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-28.80--27.90"
+	EXPRESSION ([depth]>=-28.80 AND [depth]<-27.90)
+	STYLE
+		COLOR 183 255 0
+	END
+	STYLE
+		OUTLINECOLOR 183 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-27.90--27.00"
+	EXPRESSION ([depth]>=-27.90 AND [depth]<-27.00)
+	STYLE
+		COLOR 193 255 0
+	END
+	STYLE
+		OUTLINECOLOR 193 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-27.00--26.10"
+	EXPRESSION ([depth]>=-27.00 AND [depth]<-26.10)
+	STYLE
+		COLOR 204 255 0
+	END
+	STYLE
+		OUTLINECOLOR 204 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-26.10--25.20"
+	EXPRESSION ([depth]>=-26.10 AND [depth]<-25.20)
+	STYLE
+		COLOR 214 255 0
+	END
+	STYLE
+		OUTLINECOLOR 214 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-25.20--24.30"
+	EXPRESSION ([depth]>=-25.20 AND [depth]<-24.30)
+	STYLE
+		COLOR 224 255 0
+	END
+	STYLE
+		OUTLINECOLOR 224 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-24.30--23.40"
+	EXPRESSION ([depth]>=-24.30 AND [depth]<-23.40)
+	STYLE
+		COLOR 234 255 0
+	END
+	STYLE
+		OUTLINECOLOR 234 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-23.40--22.50"
+	EXPRESSION ([depth]>=-23.40 AND [depth]<-22.50)
+	STYLE
+		COLOR 244 255 0
+	END
+	STYLE
+		OUTLINECOLOR 244 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-22.50--21.60"
+	EXPRESSION ([depth]>=-22.50 AND [depth]<-21.60)
+	STYLE
+		COLOR 255 255 0
+	END
+	STYLE
+		OUTLINECOLOR 255 255 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-21.60--20.70"
+	EXPRESSION ([depth]>=-21.60 AND [depth]<-20.70)
+	STYLE
+		COLOR 255 244 0
+	END
+	STYLE
+		OUTLINECOLOR 255 244 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-20.70--19.80"
+	EXPRESSION ([depth]>=-20.70 AND [depth]<-19.80)
+	STYLE
+		COLOR 255 234 0
+	END
+	STYLE
+		OUTLINECOLOR 255 234 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-19.80--18.90"
+	EXPRESSION ([depth]>=-19.80 AND [depth]<-18.90)
+	STYLE
+		COLOR 255 224 0
+	END
+	STYLE
+		OUTLINECOLOR 255 224 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-18.90--18.00"
+	EXPRESSION ([depth]>=-18.90 AND [depth]<-18.00)
+	STYLE
+		COLOR 255 214 0
+	END
+	STYLE
+		OUTLINECOLOR 255 214 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-18.00--17.10"
+	EXPRESSION ([depth]>=-18.00 AND [depth]<-17.10)
+	STYLE
+		COLOR 255 204 0
+	END
+	STYLE
+		OUTLINECOLOR 255 204 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-17.10--16.20"
+	EXPRESSION ([depth]>=-17.10 AND [depth]<-16.20)
+	STYLE
+		COLOR 255 193 0
+	END
+	STYLE
+		OUTLINECOLOR 255 193 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-16.20--15.30"
+	EXPRESSION ([depth]>=-16.20 AND [depth]<-15.30)
+	STYLE
+		COLOR 255 183 0
+	END
+	STYLE
+		OUTLINECOLOR 255 183 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-15.30--14.40"
+	EXPRESSION ([depth]>=-15.30 AND [depth]<-14.40)
+	STYLE
+		COLOR 255 173 0
+	END
+	STYLE
+		OUTLINECOLOR 255 173 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-14.40--13.50"
+	EXPRESSION ([depth]>=-14.40 AND [depth]<-13.50)
+	STYLE
+		COLOR 255 163 0
+	END
+	STYLE
+		OUTLINECOLOR 255 163 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-13.50--12.60"
+	EXPRESSION ([depth]>=-13.50 AND [depth]<-12.60)
+	STYLE
+		COLOR 255 153 0
+	END
+	STYLE
+		OUTLINECOLOR 255 153 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-12.60--11.70"
+	EXPRESSION ([depth]>=-12.60 AND [depth]<-11.70)
+	STYLE
+		COLOR 255 142 0
+	END
+	STYLE
+		OUTLINECOLOR 255 142 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-11.70--10.80"
+	EXPRESSION ([depth]>=-11.70 AND [depth]<-10.80)
+	STYLE
+		COLOR 255 132 0
+	END
+	STYLE
+		OUTLINECOLOR 255 132 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-10.80--9.90"
+	EXPRESSION ([depth]>=-10.80 AND [depth]<-9.90)
+	STYLE
+		COLOR 255 122 0
+	END
+	STYLE
+		OUTLINECOLOR 255 122 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-9.90--9.00"
+	EXPRESSION ([depth]>=-9.90 AND [depth]<-9.00)
+	STYLE
+		COLOR 255 112 0
+	END
+	STYLE
+		OUTLINECOLOR 255 112 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-9.00--8.10"
+	EXPRESSION ([depth]>=-9.00 AND [depth]<-8.10)
+	STYLE
+		COLOR 255 101 0
+	END
+	STYLE
+		OUTLINECOLOR 255 101 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-8.10--7.20"
+	EXPRESSION ([depth]>=-8.10 AND [depth]<-7.20)
+	STYLE
+		COLOR 255 91 0
+	END
+	STYLE
+		OUTLINECOLOR 255 91 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-7.20--6.30"
+	EXPRESSION ([depth]>=-7.20 AND [depth]<-6.30)
+	STYLE
+		COLOR 255 81 0
+	END
+	STYLE
+		OUTLINECOLOR 255 81 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-6.30--5.40"
+	EXPRESSION ([depth]>=-6.30 AND [depth]<-5.40)
+	STYLE
+		COLOR 255 71 0
+	END
+	STYLE
+		OUTLINECOLOR 255 71 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-5.40--4.50"
+	EXPRESSION ([depth]>=-5.40 AND [depth]<-4.50)
+	STYLE
+		COLOR 255 61 0
+	END
+	STYLE
+		OUTLINECOLOR 255 61 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-4.50--3.60"
+	EXPRESSION ([depth]>=-4.50 AND [depth]<-3.60)
+	STYLE
+		COLOR 255 50 0
+	END
+	STYLE
+		OUTLINECOLOR 255 50 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-3.60--2.70"
+	EXPRESSION ([depth]>=-3.60 AND [depth]<-2.70)
+	STYLE
+		COLOR 255 40 0
+	END
+	STYLE
+		OUTLINECOLOR 255 40 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-2.70--1.80"
+	EXPRESSION ([depth]>=-2.70 AND [depth]<-1.80)
+	STYLE
+		COLOR 255 30 0
+	END
+	STYLE
+		OUTLINECOLOR 255 30 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-1.80--0.90"
+	EXPRESSION ([depth]>=-1.80 AND [depth]<-0.90)
+	STYLE
+		COLOR 255 20 0
+	END
+	STYLE
+		OUTLINECOLOR 255 20 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "-0.90-0.00"
+	EXPRESSION ([depth]>=-0.90 AND [depth]<0.00)
+	STYLE
+		COLOR 255 10 0
+	END
+	STYLE
+		OUTLINECOLOR 255 10 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+CLASS
+	NAME "0.00-INF"
+	EXPRESSION ([depth]>=0.00)
+	STYLE
+		COLOR 255 0 0
+	END
+	STYLE
+		OUTLINECOLOR 255 0 0
+		ANTIALIAS TRUE
+		WIDTH 0
+	END
+END
+
+
+
+
+	END
+END

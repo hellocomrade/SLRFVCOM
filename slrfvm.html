@@ -1,0 +1,107 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>OpenLayers: WMS + Time</title>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAA2j8OEkgqGP0zRMOFQm4UrxT3cneOlFp1CAVybW4HmNbNmdzlIBSsNzWmB7dSeueHFNoPb9XONJzDkw" type="text/javascript"></script>
+
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script type="text/javascript">
+        var map, ia_wms;
+        function init(){
+	    var extent=new OpenLayers.Bounds(-10473707.362244375,5104770.496306875,-8272320.948025625,6229923.5524631245);
+	    var options={
+		controls:[new OpenLayers.Control.LayerSwitcher(),
+			new OpenLayers.Control.Navigation(),
+			new OpenLayers.Control.PanZoomBar()
+		],
+		projection: new OpenLayers.Projection("EPSG:3857"),
+		displayProjection: new OpenLayers.Projection("EPSG:3857"),
+		maxExtent:extent,
+		                    numZoomLevels:9,
+		                    minZoomLevel:6,
+		                    maxZoomLevel:14,
+		            	    maxResolution: 156543.0339,
+		            	    restrictedExtent: new OpenLayers.Bounds(-20000000.0, -20000000.0,
+		                                             20000000.0, 20000000.0),
+		div:'map'//,
+		//allOverlays: true
+	    };
+            map = new OpenLayers.Map(options);
+	    map.addControl(new OpenLayers.Control.LayerSwitcher());
+	    var osm = new OpenLayers.Layer.OSM();
+
+            /*var ol_wms = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+                "http://vmap0.tiles.osgeo.org/wms/vmap0?", {layers: 'basic',srs:'EPSG:4269'} );
+		*/
+var lyr_gsstat=new OpenLayers.Layer.Google("Google Hybrid"
+		            		,{"type": G_HYBRID_MAP,"sphericalMercator": true}	
+		                                 );
+aliasproj = new OpenLayers.Projection("EPSG:3857");
+lyr_gsstat.projection=aliasproj;
+OpenLayers.Projection.addTransform("EPSG:4269", "EPSG:3857", OpenLayers.Layer.SphericalMercator.projectForward);
+		            OpenLayers.Projection.addTransform("EPSG:3857", "EPSG:4269", OpenLayers.Layer.SphericalMercator.projectInverse);
+            ia_wms = new OpenLayers.Layer.WMS("Grid","http://michigan.glin.net/cgi-bin/slrfvcom?",{srs:'EPSG:3857',layers:"slrfvmgrid",transparent:true,format:'image/png',time:"2011-07-21 01:01:52"});
+	    current=new OpenLayers.Layer.WMS("Water Current","http://michigan.glin.net/cgi-bin/slrfvcom?",{srs:'EPSG:3857',layers:"slrfvmcurrent",transparent:true,format:'image/png',time:"2011-07-21 01:01:52"});
+	    depth=new OpenLayers.Layer.WMS("Water Depth","http://michigan.glin.net/cgi-bin/slrfvcom?",{srs:'EPSG:3857',layers:"slrfvmdepth",transparent:true,format:'image/png',time:"2011-07-21 01:01:52"});
+	    map.addLayers([lyr_gsstat, ia_wms,depth,current]);
+
+	     function setHTML(response) {
+            
+            document.getElementById('debug').innerHTML = response.responseText;
+        }
+
+
+	    map.events.register('click', map, function (e) {
+                document.getElementById('debug').innerHTML = "Loading... please wait...";
+                var url =  map.layers[2].getFullRequestString(
+                    {
+                        REQUEST: "GetFeatureInfo",
+                        //EXCEPTIONS: "application/vnd.ogc.se_xml",
+                        BBOX: map.getExtent().toBBOX(),
+                        X: e.xy.x,
+                        Y: e.xy.y,
+                        INFO_FORMAT: 'text/html',
+                        QUERY_LAYERS: map.layers[2].params.LAYERS,
+                        FEATURE_COUNT: 1,
+                        WIDTH: map.size.w,
+                        HEIGHT: map.size.h
+                    },
+                    "http://192.168.100.106/cgi-bin/slrfvcom"
+                );
+                OpenLayers.loadURL(url, '', this, setHTML, setHTML);
+                OpenLayers.Event.stop(e);
+            });
+
+
+            
+            //map.zoomToExtent(new OpenLayers.Bounds(-76.657402,44.099663,-74.789566,45.031693));
+        }
+        function update_date() {
+            var string = OpenLayers.Util.getElement('year').value + "-" +
+                         OpenLayers.Util.getElement('month').value + "-" +
+                         OpenLayers.Util.getElement('day').value + " " +
+                         OpenLayers.Util.getElement('hour').value + ":" +
+                         OpenLayers.Util.getElement('minute').value + ":"+OpenLayers.Util.getElement('second').value;
+            ia_wms.mergeNewParams({'time':string});
+
+        }
+    </script>
+  </head>
+  <body onload="init()">
+     <h1 id="title"> WMS Time Example</h1>
+        <p id="shortdesc">
+            Shows the use of the layer WMS-T (time) layer</a>
+        </p>
+    <input size="4" type='text' id='year' value="2005" onchange="update_date()"/>-<input size="2" type="text" id="month" value="08" onchange="update_date()"/>-<input size="2" type="text" id="day" value="29" onchange="update_date()" />T<input type="text" size="2" id="hour" value="13" onchange="update_date()" />:<input type="text" size="2" id="minute" value="00" onchange="update_date()" />:<input type="text" size="2" id="second" value="00" onchange="update_date()" />
+    <div id="map" class="smallmap"></div>
+    <div id="debug">
+
+    </div>
+  </body>
+</html>
+
+
+
+

@@ -1,0 +1,8 @@
+<OGRVRTDataSource>
+    <OGRVRTLayer name="wl">
+        <SrcDataSource>wl.csv</SrcDataSource> 
+	<GeometryType>wkbPoint</GeometryType> 
+	<GeometryField encoding="PointFromColumns" x="lon" y="lat" z="depth"/>
+	<LayerSRS>GEOGCS["NAD83",DATUM["North_American_Datum_1983",SPHEROID["GRS 1980",6378137,298.257222101,AUTHORITY["EPSG","7019"]],AUTHORITY["EPSG","6269"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.01745329251994328,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4269"]]</LayerSRS>
+    </OGRVRTLayer>
+</OGRVRTDataSource>

@@ -1,0 +1,245 @@
+MAP
+	NAME 'SLR-FVCOM'
+	size 600 400
+	UNITS dd
+	EXTENT -76.657402 44.099663 -74.789566 45.031693
+	SYMBOLSET "symbols.sym"
+	FONTSET "fonts.txt"
+	IMAGETYPE AGGA
+	OUTPUTFORMAT
+        	NAME 'AGGA'
+        	DRIVER AGG/PNG
+        	IMAGEMODE RGBA
+	END
+	IMAGECOLOR 255 255 255
+	PROJECTION
+        	"init=epsg:4269"
+	END
+	WEB
+		METADATA
+			"ows_enable_request"   "*"
+			"wms_title" "SLRFVCOM"
+            		"wms_onlineresource" "http://192.168.100.106/cgi-bin/slrfvcom?"
+            		"wms_srs" "EPSG:4269 EPSG:4326 EPSG:3857"
+			"wms_exceptions_format" "application/vnd.ogc.se_inimage"
+            		"wms_feature_info_mime_type" "text/html"
+        	END
+    	END
+	LAYER
+		NAME "slrfvmcurrent"
+		TYPE POLYGON
+		STATUS ON
+		CONNECTIONTYPE POSTGIS
+		CONNECTION "dbname=slrfvcom host=127.0.0.1 user=gwang password=gwang port=5432"
+        	DATA "the_geom from slrfvm"
+        	PROJECTION
+            		"init=epsg:4269"
+        	END
+		DUMP TRUE
+		TEMPLATE "/var/local/mapfiles/slrfvm.html"
+		METADATA
+            		"wms_title" "slrfvmcurrent"
+            		"wms_srs" "EPSG:4269 EPSG:4326 EPSG:3857"
+            		"wms_extent" "-76.657402 44.099663 -74.789566 45.031693"
+            		"wms_timeextent" "2009-01-29 01:00:00/2020-01-29 23:59:59"
+            		"wms_timeitem" "datetime"
+			"wms_enable_request" "*"
+			#"wms_include_items"   "all"
+            		#"wms_timedefault" "2009-01-29 11:00:00"
+			#"wms_exceptions_format" "application/vnd.ogc.se_xml"
+			"wms_exceptions_format" "application/vnd.ogc.se_inimage"
+        	END
+		LABELITEM "msdir0"
+		CLASS
+            		NAME "current.0-.25"
+            		STYLE
+				OPACITY 0 
+            		END
+			EXPRESSION ([uv0]>=0 AND [uv0]<0.25)
+			TEXT "F"
+			LABEL
+                                SIZE 12
+                        	COLOR 0 0 255
+                                ANGLE [msdir0]
+                                PARTIALS true
+                                TYPE TRUETYPE
+                                FONT esri_39
+                                ANTIALIAS true
+                                POSITION CC
+                        END
+        	END
+		CLASS
+                        NAME "current.0.25-.50"
+                        STYLE
+                                OPACITY 0
+                        END
+			EXPRESSION ([uv0]>=0.25 AND [uv0]<0.50)
+                        TEXT "F"
+                        LABEL
+                                SIZE 12
+                        	COLOR 0 255 255
+                                ANGLE [msdir0]
+                                PARTIALS true
+                                TYPE TRUETYPE
+                                FONT esri_39
+                                ANTIALIAS true
+                                POSITION CC
+                        END
+                END
+		CLASS
+                        NAME "current0.50-0.75"
+                        STYLE
+                                OPACITY 0
+                        END
+			EXPRESSION ([uv0]>=0.50 AND [uv0]<0.75)
+                        TEXT "F"
+                        LABEL
+                                SIZE 12
+                        	COLOR 0 255 0
+                                ANGLE [msdir0]
+                                PARTIALS true
+                                TYPE TRUETYPE
+                                FONT esri_39
+                                ANTIALIAS true
+                                POSITION CC
+                        END
+                END
+		CLASS
+                        NAME "current0.75-1.00"
+                        STYLE
+                                OPACITY 0
+                        END
+			EXPRESSION ([uv0]>=0.75 AND [uv0]<1.00)
+                        TEXT "F"
+                        LABEL
+                                SIZE 12
+                        	COLOR 255 255 0
+                                ANGLE [msdir0]
+                                PARTIALS true
+                                TYPE TRUETYPE
+                                FONT esri_39
+                                ANTIALIAS true
+                                POSITION CC
+                        END
+                END
+		CLASS
+                        NAME "current1.00-1.25"
+                        STYLE
+                                OPACITY 0
+                        END
+			EXPRESSION ([uv0]>=1.00 AND [uv0]<1.25)
+                        TEXT "F"
+                        LABEL
+                                SIZE 12
+                        	COLOR 255 0 0
+                                ANGLE [msdir0]
+                                PARTIALS true
+                                TYPE TRUETYPE
+                                FONT esri_39
+                                ANTIALIAS true
+                                POSITION CC
+                        END
+                END
+		CLASS
+                        NAME "current1.25-1.50"
+                        STYLE
+                                OPACITY 0
+                        END
+			EXPRESSION ([uv0]>=1.25 AND [uv0]<1.50)
+                        TEXT "F"
+                        LABEL
+                                SIZE 12
+                        	COLOR 255 125 0
+                                ANGLE [msdir0]
+                                PARTIALS true
+                                TYPE TRUETYPE
+                                FONT esri_39
+                                ANTIALIAS true
+                                POSITION CC
+                        END
+                END
+		CLASS
+                        NAME "current1.50"
+                        STYLE
+                                OPACITY 0
+                        END
+			EXPRESSION ([uv0]>=1.50)
+                        TEXT "F"
+                        LABEL
+                                SIZE 12
+                        	COLOR 255 125 125
+                                ANGLE [msdir0]
+                                PARTIALS true
+                                TYPE TRUETYPE
+                                FONT esri_39
+                                ANTIALIAS true
+                                POSITION CC
+                        END
+                END
+	END
+	LAYER
+                NAME "slrfvmgrid"
+                TYPE POLYGON
+                STATUS ON
+                CONNECTIONTYPE POSTGIS
+                CONNECTION "dbname=slrfvcom host=127.0.0.1 user=gwang password=gwang port=5432"
+                DATA "the_geom from slrfvm"
+                PROJECTION
+                        "init=epsg:4269"
+                END
+                DUMP TRUE
+                TEMPLATE "/var/local/mapfiles/slrfvm.html"
+                METADATA
+                        "wms_title" "slrfvmgrid"
+                        "wms_srs" "EPSG:4269 EPSG:4326 EPSG:3857"
+                        "wms_extent" "-76.657402 44.099663 -74.789566 45.031693"
+                        "wms_timeextent" "2009-01-29 01:00:00/2020-01-29 23:59:59"
+                        "wms_timeitem" "datetime"
+                        "wms_enable_request" "*"
+                        "wms_include_items"   "all"
+                        #"wms_timedefault" "2009-01-29 11:00:00"
+                        #"wms_exceptions_format" "application/vnd.ogc.se_xml"
+                        "wms_exceptions_format" "application/vnd.ogc.se_inimage"
+                END
+                CLASS
+                        NAME "slrfvmpoly_grid"
+                        STYLE
+                                SIZE 0
+                                COLOR 200 201 247
+                                ANTIALIAS True
+                                OUTLINECOLOR 110 110 110
+                        END
+                END
+	END
+	LAYER
+                NAME "slrfvmdepth"
+                TYPE POLYGON
+                STATUS ON
+                CONNECTIONTYPE POSTGIS
+                CONNECTION "dbname=slrfvcom host=127.0.0.1 user=gwang password=gwang port=5432"
+                DATA "the_geom from slrfvm"
+                PROJECTION
+                        "init=epsg:4269"
+                END
+                DUMP TRUE
+                TEMPLATE "/var/local/mapfiles/slrfvm.html"
+                METADATA
+                        "wms_title" "slrfvmdepth"
+                        "wms_srs" "EPSG:4269 EPSG:4326 EPSG:3857"
+                        "wms_extent" "-76.657402 44.099663 -74.789566 45.031693"
+                        "wms_timeextent" "2009-01-29 01:00:00/2020-01-29 23:59:59"
+                        "wms_timeitem" "datetime"
+                        "wms_enable_request" "*"
+                        "wms_include_items"   "all"
+                        #"wms_timedefault" "2009-01-29 11:00:00"
+                        #"wms_exceptions_format" "application/vnd.ogc.se_xml"
+                        "wms_exceptions_format" "application/vnd.ogc.se_inimage"
+                END
+                		
+				
+
+
+
+
+	END
+END

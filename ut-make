@@ -1,0 +1,2 @@
+utest:test.c
+	gcc -g -o $@ $^ -I./lib ./lib/util.o -lgdal

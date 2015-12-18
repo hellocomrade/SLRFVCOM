@@ -1,0 +1,2 @@
+colors:msclass.c
+	gcc -g -o $@ $^
