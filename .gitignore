@@ -30,3 +30,7 @@
 
 # Debug files
 *.dSYM/
+
+#SLRFVCOM Specific
+output/
+data/
